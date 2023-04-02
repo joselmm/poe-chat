@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <!--
+      Need a visual blank slate?
+      Remove all code in `styles.css`!
+    -->
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="script.js"></script>
+  </head>
+  <body>
+    <textarea id="mensaje" cols="50" type="text"></textarea>
+    <input id="clear-context" type="checkbox" />
+    <label for="clear-context">Olvidar Conversacion</label>
+    <button id="btn-send" onclick="enviarMensaje()">Enviar</button>
+    <div>
+      <textarea id="respuesta" cols="50" rows="10"></textarea>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
