@@ -5,9 +5,14 @@ const $clearContext = document.querySelector('#clear-context');
 
 async function enviarMensaje() {
   //console.log($clearContext.checked)
-  if (!$mensaje.value) return;
-  var payload = { clearContext:$clearContext.checked,promt: $mensaje.value };
-  $clearContext.checked=false;
+  $btnSend.disabled = true;
+  if (!$mensaje.value) {
+    $btnSend.disabled = false;
+
+    return;
+  }
+  var payload = { clearContext: $clearContext.checked, promt: $mensaje.value };
+  $clearContext.checked = false;
   // si quieres olvidar la conversacion agregas la propiedad "clearContext" al cuerpo de la solicitud con valor "true"
   const res = await fetch('https://apibotresponde.onrender.com/talk', {
     method: 'POST',
@@ -17,4 +22,5 @@ async function enviarMensaje() {
     .then((res) => res.json())
     .then((res) => res);
   $respuesta.value = res.botRespuesta;
+  $btnSend.disabled = true;
 }
