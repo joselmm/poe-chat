@@ -22,5 +22,5 @@ async function enviarMensaje() {
     .then((res) => res.json())
     .then((res) => res);
   $respuesta.value = res.botRespuesta;
-  $btnSend.disabled = true;
+  $btnSend.disabled = false;
 }
