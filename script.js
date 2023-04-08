@@ -3,14 +3,19 @@ const $btnSend = document.querySelector('#btn-send');
 const $respuesta = document.querySelector('#respuesta');
 const $clearContext = document.querySelector('#clear-context');
 
+enviando = false;
+
 async function enviarMensaje() {
   //console.log($clearContext.checked)
+  if(enviando)return;
+  enviando=true;
+  
   $btnSend.disabled = true;
   if (!$mensaje.value) {
     $btnSend.disabled = false;
-
     return;
   }
+  
   var payload = { clearContext: $clearContext.checked, promt: $mensaje.value };
   $clearContext.checked = false;
   // si quieres olvidar la conversacion agregas la propiedad "clearContext" al cuerpo de la solicitud con valor "true"
@@ -23,4 +28,5 @@ async function enviarMensaje() {
     .then((res) => res);
   $respuesta.value = res.botRespuesta;
   $btnSend.disabled = false;
+  enviando = false;
 }
