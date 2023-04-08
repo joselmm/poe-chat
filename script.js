@@ -9,10 +9,11 @@ async function enviarMensaje() {
   //console.log($clearContext.checked)
   if(enviando)return;
   enviando=true;
-  
   $btnSend.disabled = true;
+  
   if (!$mensaje.value) {
     $btnSend.disabled = false;
+    enviando=false;
     return;
   }
   
