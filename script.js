@@ -63,6 +63,7 @@ socket.onmessage = function(event) {
   //console.log('Mensaje recibido: ' + event.data);
   $respuesta.value = event.data;
   enviando=false;
+  $btnSend.disabled = false;
 };
 
 socket.onclose = function(event) {
