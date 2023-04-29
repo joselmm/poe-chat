@@ -16,6 +16,23 @@ async function enviarMensaje() {
     enviando=false;
     return;
   }
+ 
+   var mensaje =($clearContext.checked)? "/" + $mensaje.value : $mensaje.value;
+   $clearContext.checked = false;
+   socket.send(mensaje);
+}
+/*
+async function enviarMensaje() {
+  //console.log($clearContext.checked)
+  if(enviando)return;
+  enviando=true;
+  $btnSend.disabled = true;
+  
+  if (!$mensaje.value) {
+    $btnSend.disabled = false;
+    enviando=false;
+    return;
+  }
   
   var payload = { clearContext: $clearContext.checked, message: $mensaje.value };
   $clearContext.checked = false;
@@ -35,3 +52,19 @@ async function enviarMensaje() {
   $btnSend.disabled = false;
   enviando = false;
 }
+*/
+
+var socket = new WebSocket('wss://apibotresponde-jose.onrender.com');
+socket.onopen = function(event) {
+  console.log('Conexión establecida');
+};
+
+socket.onmessage = function(event) {
+  //console.log('Mensaje recibido: ' + event.data);
+  $respuesta.value = event.data;
+  enviando=false;
+};
+
+socket.onclose = function(event) {
+  console.log('Conexión cerrada');
+};
