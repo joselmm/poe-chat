@@ -2,7 +2,7 @@ const $mensaje = document.querySelector('#mensaje');
 const $btnSend = document.querySelector('#btn-send');
 const $respuesta = document.querySelector('#respuesta');
 const $clearContext = document.querySelector('#clear-context');
-
+var POE_ENDPOINT = "https://apibotresponde-jose.onrender.com/talk";
 enviando = false;
 
 async function enviarMensaje() {
@@ -20,7 +20,7 @@ async function enviarMensaje() {
   var payload = { clearContext: $clearContext.checked, message: $mensaje.value };
   $clearContext.checked = false;
   // si quieres olvidar la conversacion agregas la propiedad "clearContext" al cuerpo de la solicitud con valor "true"
-  const res = await fetch('https://apibotresponde.onrender.com/talk', {
+  const res = await fetch(POE_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
