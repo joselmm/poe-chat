@@ -53,7 +53,7 @@ async function enviarMensaje() {
   enviando = false;
 }
 */
-var wsURL = "wss://joselmm-solid-umbrella-7j9v5gv4x6wcww5r-8080.preview.app.github.dev/" || 'wss://apibotresponde-jose.onrender.com';
+var wsURL = 'wss://apibotresponde-jose.onrender.com' || "wss://joselmm-solid-umbrella-7j9v5gv4x6wcww5r-8080.preview.app.github.dev/";
 var socket = new WebSocket(wsURL);
 socket.onopen = function(event) {
   console.log('Conexión establecida con '+wsURL);
