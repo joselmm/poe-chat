@@ -66,9 +66,10 @@ socket.onmessage = function(event) {
     return
   }
   var jsonOb = JSON.parse(event.data);
+  console.log(jsonOb.state);
   $respuesta.value = jsonOb.answer;
   enviando=false;
-  if(jsonOb.state="complete"){console.log(jsonOb.state);$btnSend.disabled = false;}
+  if(jsonOb.state="complete"){$btnSend.disabled = false;}
 };
 
 socket.onclose = function(event) {
