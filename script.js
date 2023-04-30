@@ -61,7 +61,7 @@ socket.onopen = function(event) {
 
 socket.onmessage = function(event) {
   //console.log('Mensaje recibido: ' + event.data);
-  if(event.data.chartAt(0)!="{"){
+  if(event.data.charAt(0)!="{"){
     $respuesta.value = event.data;  
     return
   }
