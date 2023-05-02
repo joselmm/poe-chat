@@ -87,7 +87,7 @@ function incluirSugerencias(sugerencias) {
   if(sugerencias.length===0)return
   
   let $fragment = document.createDocumentFragment();
-  for (sug of sugerencias){
+  for (let sug of sugerencias){
     var $btn = document.createElement("button");
     $btn.innerText=sug;
     $btn.onclick=enviarSugerencia;
