@@ -2,6 +2,9 @@ const $mensaje = document.querySelector('#mensaje');
 const $btnSend = document.querySelector('#btn-send');
 const $respuesta = document.querySelector('#respuesta');
 const $clearContext = document.querySelector('#clear-context');
+const $suggestedReplies = document.querySelector('#suggested-replies');
+
+
 var POE_ENDPOINT = "https://apibotresponde-jose.onrender.com/talk";
 enviando = false;
 
@@ -66,12 +69,36 @@ socket.onmessage = function(event) {
     return
   }
   var jsonOb = JSON.parse(event.data);
-  console.log(jsonOb.state);
+  //console.log(jsonOb);
   $respuesta.value = jsonOb.answer;
   enviando=false;
   if(jsonOb.state=="complete"){$btnSend.disabled = false;}
+  incluirSugerencias(jsonOb.suggestedReplies);
 };
 
 socket.onclose = function(event) {
   console.error('Conexión cerrada');
 };
+
+
+
+function incluirSugerencias(sugerencias) {
+  if(sugerencias.length===0)return
+  
+  let $fragment = document.createDocumentFragment();
+  for (sug of sugerencias){
+    var $btn = document.createElement("button");
+    $btn.innerText=sug;
+    $btn.onclick=enviarSugerencia;
+    $fragment.appendChild($btn)
+  }
+  $suggestedReplies.innerHTML="";
+  $suggestedReplies.appendChild($fragment)
+}
+
+function enviarSugerencia(e){
+  console.log(e)
+  e.preventDefault();
+  $mensaje.value=e.target.innerText;
+  $btnSend.click();
+}
