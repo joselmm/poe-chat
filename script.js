@@ -20,9 +20,11 @@ async function enviarMensaje() {
     return;
   }
  
+   $suggestedReplies.innerHTML="";
    var mensaje =($clearContext.checked)? "/" + $mensaje.value : $mensaje.value;
    $clearContext.checked = false;
    socket.send(mensaje);
+   $mensaje.focus();
 }
 /*
 async function enviarMensaje() {
@@ -58,30 +60,36 @@ async function enviarMensaje() {
 */
 //var wsURL = "wss://hhnoqz-32767.csb.app/" 
 var wsURL = 'wss://apibotresponde-jose.onrender.com';
-var socket = new WebSocket(wsURL);
-socket.onopen = function(event) {
-  console.log('Conexión establecida con '+wsURL);
-};
 
-socket.onmessage = function(event) {
-  //console.log('Mensaje recibido: ' + event.data);
-  if(event.data.charAt(0)!="{"){
-    $respuesta.value = event.data;  
-    return
-  }
-  var jsonOb = JSON.parse(event.data);
-  //console.log(jsonOb);
-  $respuesta.value = jsonOb.answer;
-  enviando=false;
-  if(jsonOb.state=="complete"){$btnSend.disabled = false;}
-  incluirSugerencias(jsonOb.suggestedReplies);
-};
-
-socket.onclose = function(event) {
-  console.error('Conexión cerrada');
-};
-
-
+window.addEventListener('load', function() {
+  
+  console.log('La página se ha cargado completamente.');
+   socket = new WebSocket(wsURL);
+   socket.onopen = function(event) {
+    console.log('Conexión establecida con '+wsURL);
+  };
+  
+  socket.onmessage = function(event) {
+    //console.log('Mensaje recibido: ' + event.data);
+    if(event.data.charAt(0)!="{"){
+      $respuesta.value = event.data;  
+      return
+    }
+    var jsonOb = JSON.parse(event.data);
+    //console.log(jsonOb);
+    $respuesta.value = jsonOb.answer;
+    enviando=false;
+    if(jsonOb.state=="complete"){$btnSend.disabled = false;}
+    incluirSugerencias(jsonOb.suggestedReplies);
+  };
+  
+  socket.onclose = function(event) {
+    console.error('Conexión cerrada');
+  };
+  
+  
+  
+})
 
 function incluirSugerencias(sugerencias) {
   if(sugerencias.length===0)return
@@ -103,3 +111,14 @@ function enviarSugerencia(e){
   $mensaje.value=e.target.innerText;
   $btnSend.click();
 }
+
+
+
+document.addEventListener('keydown', function(event) {
+  //console.log(event.key)
+  var key = event.key.toLowerCase();
+  if (event.ctrlKey && event.shiftKey  && key==="shift") {
+    event.preventDefault(); // Evita que se ejecute el comportamiento predeterminado del navegador
+    $btnSend.click(); // Hace clic en el botón con el ID 'btnSend'
+  }
+});
