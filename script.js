@@ -53,7 +53,7 @@ async function enviarMensaje() {
   enviando = false;
 }
 */
-var wsURL = "wss://hhnoqz-8081.csb.app/" || 'wss://apibotresponde-jose.onrender.com';
+var wsURL = "wss://hhnoqz-32767.csb.app/" || 'wss://apibotresponde-jose.onrender.com';
 var socket = new WebSocket(wsURL);
 socket.onopen = function(event) {
   console.log('Conexión establecida con '+wsURL);
