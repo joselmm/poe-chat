@@ -59,7 +59,7 @@ async function enviarMensaje() {
 }
 */
 //var wsURL = "wss://hhnoqz-32767.csb.app/" 
-var wsURL = 'wss://apibotresponde-jose.onrender.com';
+var wsURL =('https://joselmm.github.io/poe-chat/cs.html'===location.href)?'wss://joselmm-solid-umbrella-7j9v5gv4x6wcww5r-8080.preview.app.github.dev/' : 'wss://apibotresponde-jose.onrender.com';
 
 window.addEventListener('load', function() {
   
