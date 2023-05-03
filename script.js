@@ -117,7 +117,7 @@ function enviarSugerencia(e){
 document.addEventListener('keydown', function(event) {
   //console.log(event.key)
   var key = event.key.toLowerCase();
-  if (event.ctrlKey && event.shiftKey  && key==="shift") {
+  if (event.ctrlKey && event.shiftKey  && key==="ctrl") {
     event.preventDefault(); // Evita que se ejecute el comportamiento predeterminado del navegador
     $btnSend.click(); // Hace clic en el botón con el ID 'btnSend'
   }
