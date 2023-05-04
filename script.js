@@ -60,7 +60,7 @@ async function enviarMensaje() {
 }
 */
 //var wsURL = "wss://hhnoqz-32767.csb.app/" 
-var wsURL =('/index.html'===location.pathname)?'wss://hhnoqz-32767.csb.app/' : 'wss://apibotresponde-jose.onrender.com';
+var wsURL =(location.pathname.includes('/index.html'))?'wss://hhnoqz-32767.csb.app/' : 'wss://apibotresponde-jose.onrender.com';
 
 window.addEventListener('load', function() {
   
