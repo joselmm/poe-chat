@@ -3,11 +3,12 @@ const $btnSend = document.querySelector('#btn-send');
 const $respuesta = document.querySelector('#respuesta');
 const $clearContext = document.querySelector('#clear-context');
 const $suggestedReplies = document.querySelector('#suggested-replies');
+const $advertencia = document.querySelector('#advertencia');
 
 
 var POE_ENDPOINT = "https://apibotresponde-jose.onrender.com/talk";
 enviando = false;
-
+conecto = false;
 async function enviarMensaje() {
   //console.log($clearContext.checked)
   if(enviando)return;
@@ -59,14 +60,22 @@ async function enviarMensaje() {
 }
 */
 //var wsURL = "wss://hhnoqz-32767.csb.app/" 
-var wsURL =('https://joselmm.github.io/poe-chat/index.html'===location.href)?'wss://joselmm-solid-umbrella-7j9v5gv4x6wcww5r-8080.preview.app.github.dev/' : 'wss://apibotresponde-jose.onrender.com';
+var wsURL =('/index.html'===location.pathname)?'wss://hhnoqz-32767.csb.app/' : 'wss://apibotresponde-jose.onrender.com';
 
 window.addEventListener('load', function() {
   
   console.log('La página se ha cargado completamente.');
-   socket = new WebSocket(wsURL);
-   socket.onopen = function(event) {
+   conectarSocket();
+  
+})
+
+function conectarSocket() {
+  socket = new WebSocket(wsURL);
+   socket.onopen = function() {
+    $advertencia.innerText="Conexión Establecida";
+    $advertencia.style.background="green";
     console.log('Conexión establecida con '+wsURL);
+    conecto=true;
   };
   
   socket.onmessage = function(event) {
@@ -85,11 +94,15 @@ window.addEventListener('load', function() {
   
   socket.onclose = function(event) {
     console.error('Conexión cerrada');
+    if(!conecto)return;
+    $advertencia.innerText="Conexión cerrada";
+    $advertencia.style.background="red";
+    conectarSocket();
+
   };
   
   
-  
-})
+}
 
 function incluirSugerencias(sugerencias) {
   if(sugerencias.length===0)return
