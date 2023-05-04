@@ -80,6 +80,7 @@ function conectarSocket() {
   
   socket.onmessage = function(event) {
     //console.log('Mensaje recibido: ' + event.data);
+    if(event.data==="te has conectado a ChatGPT")return;
     if(event.data.charAt(0)!="{"){
       $respuesta.value = event.data;  
       return
